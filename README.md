@@ -70,3 +70,4 @@ For production also consider a CAPTCHA (e.g. Cloudflare Turnstile) if you ever r
 ## Customize the website (`src/data/site.js`)
 Portrait, resume path, social links (replace each `YOUR_*_URL`), stats (hidden until `placeholder: false`), projects' `live`/`github` links.
 # portfolio
+# Portfolio
