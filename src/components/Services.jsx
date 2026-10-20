@@ -1,0 +1,6 @@
+import { Globe, Smartphone, User, Server, Sparkles, ShieldCheck } from 'lucide-react'
+const items = [[Globe, 'Frontend Website Development', 'Clean, fast websites built with React or plain HTML.'], [Smartphone, 'Responsive Website Design', 'Layouts that work on phones, tablets and desktops.'], [User, 'Personal Portfolio Websites', 'A site that presents you and your work clearly.'], [Server, 'Basic Backend Integration', 'Connect forms and data to simple Node.js APIs.'], [Sparkles, 'AI Content and Advertisement Creation', 'AI-assisted images, video and ad concepts.'], [ShieldCheck, 'Basic Website Security Review', 'Entry-level checklist review of common web issues (not a penetration test).']]
+export default function Services() {
+  return <section id="services" className="section"><h2 className="h-display text-5xl sm:text-6xl">What I can <span className="text-accent glow">help with</span></h2>
+    <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{items.map(([I, t, d]) => <div key={t} className="glass p-6 transition hover:border-accent/60"><I className="text-accent" size={24} /><h3 className="mt-3 font-semibold">{t}</h3><p className="mt-1 text-sm text-white/60">{d}</p><a href="#contact" className="mt-4 inline-block text-sm text-accent">Ask about this</a></div>)}</div></section>
+}

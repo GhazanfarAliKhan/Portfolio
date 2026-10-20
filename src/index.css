@@ -1,0 +1,87 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { @apply bg-ink text-white font-sans antialiased; background-image: radial-gradient(60rem 40rem at 80% -10%, #1b1210, transparent); }
+:focus-visible { outline: 2px solid #FF4528; outline-offset: 3px; }
+@layer components {
+  .h-display { @apply font-display font-extrabold uppercase leading-[0.95] tracking-tight; }
+  .glass { @apply bg-black/50 backdrop-blur-md border border-white/10 rounded-2xl; }
+  .btn { @apply inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold text-sm transition; }
+  .btn-primary { @apply btn bg-gradient-to-r from-accent to-orange-500 text-white shadow-[0_0_24px_#FF452866] hover:shadow-[0_0_36px_#FF4528aa]; }
+  .btn-ghost { @apply btn border border-white/20 bg-black/40 hover:border-accent; }
+  .glow { text-shadow: 0 0 24px #FF452888; }
+  .section { @apply mx-auto max-w-6xl px-5 py-24; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* Animated hero name */
+.name-ch { display: inline-block; opacity: 0; color: hsl(var(--h) 100% 62%); will-change: transform, opacity; }
+.name-ch.in { animation: nameIn .62s cubic-bezier(.2,.9,.25,1.2) forwards; }
+.name-space { display: inline-block; width: 0; transition: width .38s cubic-bezier(.2,.9,.25,1); }
+.name-space.in { width: .26em; }
+@keyframes nameIn {
+  0%   { opacity: 0; transform: translateY(.45em) scale(.55); filter: blur(7px); text-shadow: 0 0 40px hsl(var(--h) 100% 60%), 0 0 12px hsl(var(--h) 100% 70%); }
+  55%  { opacity: 1; filter: blur(0); text-shadow: 0 0 30px hsl(var(--h) 100% 58% / .95), 0 0 8px hsl(var(--h) 100% 75%); }
+  100% { opacity: 1; transform: none; filter: blur(0); text-shadow: 0 0 22px hsl(var(--h) 100% 58% / .4), 0 0 2px hsl(var(--h) 100% 78% / .6); }
+}
+/* Reduced motion: the global rule above removes animation, so show letters statically */
+@media (prefers-reduced-motion: reduce) {
+  .name-ch { opacity: 1 !important; }
+  .name-space { width: .26em !important; }
+}
+
+/* ---------- Skills section ---------- */
+@property --edge-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.skills-grid { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 72%); mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 72%); }
+.text-stroke { color: transparent; -webkit-text-stroke: 1px rgba(255,69,40,.16); }
+.depth-text { text-shadow: 0 1px 0 #3b1912, 0 2px 0 #301510, 0 3px 0 #25100c, 0 4px 0 #1b0b08, 0 10px 18px rgba(0,0,0,.55); }
+.depth-accent { color: #FF4528; text-shadow: 0 1px 0 #8a2412, 0 2px 0 #6b1c0e, 0 3px 0 #4d140a, 0 4px 0 #350d06, 0 0 28px rgba(255,69,40,.5), 0 10px 20px rgba(0,0,0,.5); }
+.no-scrollbar { scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar { display: none; }
+
+.glass-panel { background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.012)), rgba(12,12,14,.74); border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), inset 0 0 80px rgba(255,69,40,.03), 0 50px 120px -40px rgba(255,69,40,.28), 0 30px 70px -30px rgba(0,0,0,.9); }
+.glass-panel::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.05) 0%, transparent 26%); }
+@media (min-width: 768px) { .glass-panel { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); } }
+
+/* 1px ring of light; rotates on desktop only (cheaper on phones) */
+.edge-light { position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: conic-gradient(from var(--edge-a), rgba(255,69,40,0) 0deg, rgba(255,69,40,0) 215deg, #FF4528 290deg, #FFB08A 320deg, rgba(255,69,40,0) 352deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+@media (min-width: 768px) { .edge-light { animation: edgeSpin 8s linear infinite; } }
+@keyframes edgeSpin { to { --edge-a: 360deg; } }
+.edge-follow { position: absolute; inset: 0; padding: 1px; pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+
+.skill-card { background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.015) 45%, rgba(255,69,40,.05)); border: 1px solid rgba(255,255,255,.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 40px -18px rgba(0,0,0,.9); transition: border-color .3s, box-shadow .3s; will-change: transform; }
+.skill-card[data-on='true'] { border-color: rgba(255,69,40,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 0 1px rgba(255,69,40,.15), 0 22px 50px -18px rgba(255,69,40,.35); }
+
+/* extruded "3D" tile */
+.tech-tile { background: linear-gradient(145deg, #2a2b30, #121316); border: 1px solid rgba(255,255,255,.12); border-radius: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -8px 16px rgba(0,0,0,.45), 0 1px 0 #3a1a14, 0 2px 0 #2b140f, 0 3px 0 #1f0f0b, 0 12px 24px rgba(0,0,0,.6), 0 0 22px rgba(255,69,40,.14); transition: box-shadow .3s, border-color .3s; }
+.tech-tile[data-on='true'] { border-color: rgba(255,69,40,.6); box-shadow: inset 0 1px 0 rgba(255,255,255,.2), inset 0 -8px 16px rgba(0,0,0,.45), 0 1px 0 #6b1c0e, 0 2px 0 #4d140a, 0 3px 0 #350d06, 0 12px 24px rgba(0,0,0,.6), 0 0 30px rgba(255,69,40,.5); }
+
+.spin-slow { animation: spin 70s linear infinite; } .spin-rev { animation: spin 50s linear infinite reverse; }
+.flow-line { animation: flow 1.6s linear infinite; }
+.node-bob { animation: bob 6s ease-in-out infinite; }
+.hub-pulse { animation: hubPulse 3.2s ease-in-out infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes flow { to { stroke-dashoffset: -30; } }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes hubPulse { 0%,100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.12); opacity: .55; } }
+
+/* ---------- Contact section ---------- */
+.edge-static { position: absolute; inset: 0; padding: 1px; pointer-events: none; background: linear-gradient(135deg, rgba(255,69,40,.9), rgba(255,69,40,.12) 35%, rgba(255,255,255,.1) 60%, rgba(255,69,40,.6));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+.great-glow { background: linear-gradient(90deg, #FF4528, #FF7A4D 25%, #FFB070 50%, #FF7A4D 75%, #FF4528); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: greatShift 5s linear infinite, greatPulse 3.2s ease-in-out infinite; }
+@keyframes greatShift { to { background-position: 200% 0; } }
+@keyframes greatPulse { 0%,100% { filter: drop-shadow(0 0 10px rgba(255,69,40,.4)); } 50% { filter: drop-shadow(0 0 24px rgba(255,90,50,.8)); } }
+.drift { animation: drift 20s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-40px,30px,0); } }
+
+/* ---------- Work section ---------- */
+.net-flow { stroke-dasharray: 4 6; }
+.group:hover .net-flow { animation: flow 1.4s linear infinite; }
+
+/* Framer Motion measures scroll positions against <html>; a non-static position avoids its dev-mode warning. */
+html { position: relative; }
